@@ -1,6 +1,11 @@
 name: C/C++ CI
 
-on: [push, pull_request]
+on: 
+  push:
+     branches: [ "master" ]
+  pull_request:
+      branches: [ "master" ]
+  workflow_dispatch: {}
 
 jobs:
   format-check:
@@ -183,6 +188,8 @@ jobs:
       ShortSHA: ${{ env.git_short_sha }}
 
   create-release:
+    name: "release"
+    if: ${{ github.ref_name == 'master' }}
     needs: [build]
     strategy:
       fail-fast: false
@@ -192,9 +199,6 @@ jobs:
     concurrency:
       group: create-release
       cancel-in-progress: false
-    if: |
-      github.ref == 'refs/heads/master' &&
-      github.repository == 'Vita3K/Vita3K'
     steps:
       - uses: actions/checkout@v4
 
