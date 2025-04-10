@@ -172,7 +172,7 @@ jobs:
           sudo chmod +x ./uruntime
           ./uruntime --appimage-mkdwarfs -f --set-owner 0 --set-group 0 --no-history --no-create-timestamp \
           --compression zstd:level=22 -S26 -B32 --header ./uruntime -i ./build/linux-ninja-clang-appimage/AppImage -o Vita3K-x86_64.AppImage
-          cp -f ./Vita3K-x86_64.AppImage build/${{ matrix.cmake_preset }}
+          cp -f ./Vita3K-x86_64.AppImage build/${{ matrix.cmake_preset }}/bin/${{ matrix.config }}
           cd build/${{ matrix.cmake_preset }}/bin/${{ matrix.config }}
           cp -f *AppImage* ../
           rm -rf ./*
